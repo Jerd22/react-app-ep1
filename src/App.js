@@ -1,36 +1,32 @@
 import React from 'react'
 import logo from './logo.svg';
 import './App.scss';
+import { useDarkMode } from "./useDarkMode";
 import  Home  from "./screens/Home";
 import  About  from "./screens/About";
 import  Users  from "./screens/Users";
+
 import {
   BrowserRouter as Router,
   Switch,
-  Link
  } from "react-router-dom";
 import { 
   Navbar,
   Form,
+  Badge,
+  Nav
  } from "react-bootstrap";
 
 function App() { 
 
-  const [theme, setTheme] = React.useState('light');
+  const[theme, toggleTheme] = useDarkMode();
 
-  const toggleTheme = () => {
-    if (theme === 'light') {
-      setTheme('dark');
-    } else {
-      setTheme('light');
-    }
-  }
- 
+  //const themeMode = theme === 'light' ? 
 
   return (
     <div className="App">
       <>
-      <Navbar bg={theme}> 
+      <Navbar bg={theme} variant={theme} > 
         <Navbar.Brand href="#home">
           <img
             src={logo}
@@ -46,44 +42,41 @@ function App() {
             <Form.Check 
               type="switch"
               id="custom-switch"
-              label="Dark Mode" 
-              onChange={toggleTheme}
+              label={(<Badge variant={theme} >{theme ==='dark' ? 'Dark':'Light'} Mode</Badge>)}
+              onChange={toggleTheme} 
             />
           </Form>
         </Navbar.Collapse>
       </Navbar>      
       </>
-      <header className="App-header">
+      <Router>
+        <Nav defaultActiveKey="/" as="ul">
+          <Nav.Item as="li">
+            <Nav.Link href="/">Home</Nav.Link>
+          </Nav.Item>
+          <Nav.Item as="li">
+            <Nav.Link href="/about">About</Nav.Link>
+          </Nav.Item>
+          <Nav.Item as="li">
+            <Nav.Link href="/users">Users</Nav.Link>
+          </Nav.Item>
+        </Nav>
+        <Switch>
+          <Router path="/about">
+            <About />
+          </Router>
+          <Router path="/users">
+            <Users />
+          </Router>
+          <Router path="/">
+            <Home />
+          </Router>
+        </Switch>
+      </Router>
+
+      <header className="App-header" >
         <img src={logo} className="App-logo" alt="logo" />
-        <Router>
-          <nav>
-            <ul className="menu">
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/about">About</Link>
-              </li>
-              <li>
-                <Link to="/users">Users</Link>
-              </li>
-            </ul>
-          </nav>
-
-          <Switch>
-            <Router path="/about">
-              <About />
-            </Router>
-            <Router path="/users">
-              <Users />
-            </Router>
-            <Router path="/">
-              <Home />
-            </Router>
-          </Switch>
-        </Router>
-        </header>
-
+      </header>
     </div>
   );
 }
