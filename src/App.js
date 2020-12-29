@@ -50,7 +50,7 @@ function App() {
       </Navbar>      
       </>
       <Router>
-        <Nav defaultActiveKey="/" as="ul">
+        <Nav className="justify-content-end" defaultActiveKey="/" as="ul">
           <Nav.Item as="li">
             <Nav.Link href="/">Home</Nav.Link>
           </Nav.Item>
