@@ -2,6 +2,7 @@
 
 วิธีทำ
 1.สร้างไฟล์ useDarkMode.js 
+
 import { useEffect, useState } from "react";
 export const useDarkMode = () => {  
   const [theme, setTheme] = useState('light');
@@ -19,7 +20,8 @@ export const useDarkMode = () => {
     localTheme && setTheme(localTheme);
   },[]);
   return [theme,toggleTheme]
-};
+}; 
+
 2. แก้ไขไฟล์ App.js 
 
 import { useDarkMode } from "./useDarkMode";
@@ -29,7 +31,7 @@ function App() {
  + const[theme, toggleTheme] = useDarkMode();
 .
 .
- <Navbar bg={theme} variant={theme} > 
+ + <Navbar bg={theme} variant={theme} > 
 .
 .
 
