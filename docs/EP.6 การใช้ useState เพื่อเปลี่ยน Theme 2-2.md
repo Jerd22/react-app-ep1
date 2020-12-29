@@ -3,7 +3,7 @@
 วิธีทำ
 1.สร้างไฟล์ useDarkMode.js 
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"; 
 export const useDarkMode = () => {  
   const [theme, setTheme] = useState('light');
   const toggleTheme = () => {
